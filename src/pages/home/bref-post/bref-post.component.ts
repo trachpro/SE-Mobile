@@ -10,6 +10,7 @@ import { FormatService } from '../../../core/util/format.service';
 export class BrefPostComponent implements OnInit {
 
   @Input() post: any;
+  @Input() isProfile: Boolean;
   
   constructor(
     private formatService: FormatService,
@@ -25,5 +26,15 @@ export class BrefPostComponent implements OnInit {
 
       id: this.post.ID
     });
+  }
+
+  gotoTopic() {
+
+    this.navCtr.push('CategoryPage', {topic: this.post.category.ID});
+  }
+
+  gotoAuthor() {
+
+    this.navCtr.push('ProfilePage', {id: this.post.authorID? this.post.authorID: this.post.author.ID});
   }
 }

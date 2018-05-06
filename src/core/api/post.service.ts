@@ -12,8 +12,11 @@ export class PostService {
   ) { }
 
   list(page): Observable<any> {
-
     return this.mainApi.get('post/10/' + page );
+  }
+
+  getByCategory(params): Observable<any> {
+    return this.mainApi.get('post/10/'+ params.page + "?category=" + params.categoryID);
   }
 
   getById(id): Observable<any> {
@@ -40,5 +43,12 @@ export class PostService {
     params.token = this.storageService.get('token');
 
     return this.mainApi.post('post/search', params);
+  }
+
+  delete(id): Observable<any> {
+
+    let token = this.storageService.get('token');
+
+    return this.mainApi.delete('post/'+id + '?token=' + token);
   }
 }

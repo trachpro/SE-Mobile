@@ -2,14 +2,22 @@
   <div class="row">
     <div class="col-lg-8 col-md-10 mx-auto">
 
-      <app-bref-post *ngFor="let post of postList" [post]="post"></app-bref-post>
+      <!-- <app-bref-post *ngFor="let post of postList" [post]="post"></app-bref-post> -->
+      <ion-list>
+        <ion-item-sliding *ngFor="let item of postList" (ionDrag)="logDrag($event)">
+          <ion-item text-wrap>
+             <app-bref-post [post]="item" [isProfile]="true"></app-bref-post> 
+            <!-- post -->
+          </ion-item>
+
+          <ion-item-options side="right">
+            <button ion-button color="danger" (click)="delete(item)"><i class="material-icons">delete</i></button>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
       <!-- Pager -->
-      <div class="clearfix">
-        <a class="btn btn-primary float-left" *ngIf="page!=1" (click)="newerPost()">&larr; Newer Posts</a>
-        <a class="btn btn-primary float-right" *ngIf="postList.length == 10" (click)="olderPost()">Older Posts &rarr;</a>
-      </div>
     </div>
   </div>
 </div>
 
-<hr>
+<!-- <hr> -->

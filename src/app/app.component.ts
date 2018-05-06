@@ -6,6 +6,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { NavController } from 'Ionic-angular';
 import { StorageService } from '../core/util/storage.service';
 
+declare let $: any;
+
 
 @Component({
   templateUrl: 'app.html'
@@ -15,6 +17,7 @@ export class MyApp {
   @ViewChild('myNav') nav: NavController;
 
   private isLog: Boolean = false;
+  private searchContent: String;
 
   constructor(
     platform: Platform, 
@@ -32,6 +35,19 @@ export class MyApp {
 
   ngAfterViewInit() {
 
+    $(window).click( () => {
+      this.searchContent = "";
+      $("#navbarResponsive").removeClass("show");
+    })
+
+    $('#search-button').click( (e) => {
+      e.stopPropagation();
+    })
+
+    $('#navbarResponsive').click( (e) => {
+      e.stopPropagation();
+    })
+
     this.nav.viewDidEnter.subscribe( data => {
       
       this.isLog = this.storageService.get('token')? true: false;
@@ -46,6 +62,23 @@ export class MyApp {
     }
 
     // this.nav.popToRoot();
+    $("#navbarResponsive").removeClass("show");
     this.nav.push(page);
+  }
+
+  search() {
+    if(this.searchContent.length) {
+      // this.router.navigate(["/main/search"], {queryParams: {query: this.searchContent} });
+      this.nav.push('SearchPage',{query: this.searchContent});
+      this.searchContent = "";
+    }
+    
+  }
+
+  keyDownFunction(event) {
+    if(event.keyCode == 13) { // press enter to submit
+      this.search();
+    }
+    if(event.keyCode == 27) this.searchContent=""; // press esc to exit edit mode
   }
 }

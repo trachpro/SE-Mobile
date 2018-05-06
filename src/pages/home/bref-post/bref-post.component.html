@@ -8,6 +8,7 @@
     </h3>
   </a>
   <p class="post-meta">Posted by
-    <a>{{post?.author?.name}}</a> on {{formatService.formatDate(post?.createdAt)}}</p>
+    <a (click)="gotoAuthor()">{{post?.author?.name}}</a> on {{formatService.formatDate(post?.createdAt)}}</p>
+    <small id="category-tag"><a (click)="gotoTopic()">{{post?.category?.category}}</a></small>
 </div>
-<hr>
+<hr *ngIf="!isProfile">

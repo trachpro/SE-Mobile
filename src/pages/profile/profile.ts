@@ -18,7 +18,9 @@ declare let $: any;
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({
+  segment: 'profile/:id'
+})
 @Component({
   selector: 'page-profile',
   templateUrl: 'profile.html',
@@ -43,6 +45,7 @@ export class ProfilePage {
 
   private type: Number;
   private user: any = {};
+  private isOwner: Boolean;
 
   ngOnInit() {
 
@@ -50,25 +53,49 @@ export class ProfilePage {
 
     let id = this.storageService.get('id');
 
-    console.log("id: ", id);
-
     this.loading.show();
-    this.loginService.refreshKey().subscribe( data => {
 
-      this.userService.get(id).subscribe( data => {
+    this.isOwner = Number(this.navParams.data.id)? false: true;
 
-        this.user = data.data
+    console.log("refrest: ", this.isOwner);
 
-        console.log("data: ", this.user);
+    if(this.isOwner) {
 
-        this.type = 1;
+      console.log("refrest: ");
+
+      this.loginService.refreshKey().subscribe(data => {
+
+        this.userService.get(id).subscribe(data => {
+
+          this.user = data.data
+
+          console.log("data: ", this.user);
+
+          this.type = 1;
+          this.loading.hide();
+        })
+      }, error => {
+
+        this.navCtrl.push('LoginPage');
         this.loading.hide();
       })
-    }, error => {
+    } else {
 
-      this.navCtrl.push('LoginPage');
-      this.loading.hide();
-    })
+       console.log("id: ", this.navParams.data.id);
+
+        this.userService.get(this.navParams.data.id).subscribe(data => {
+
+          this.user = data.data
+
+          console.log("data: ", this.user);
+
+          this.type = 1;
+          this.loading.hide();
+        }, error => {
+
+          this.loading.hide();
+        })
+    }
   }
 
   post() {
@@ -110,7 +137,8 @@ export class ProfilePage {
 
           this.user.profilePicture = data.imageUrl;
 
-          this.loading.hide();
+          // this.loading.hide();
+          this.post();
         }, error => {
 
           this.loading.hide();
