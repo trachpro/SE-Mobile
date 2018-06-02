@@ -221,7 +221,7 @@ export class EditPostPage {
 
       this.loading.hide();
 
-      this.router.navigate(['main/preview/'+ this.id]);
+      // this.router.navigate(['main/preview/'+ this.id]);
 
       console.log("after upload image: ", this.registData.content);
     }, error => {
