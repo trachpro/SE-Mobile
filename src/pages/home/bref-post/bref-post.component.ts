@@ -18,6 +18,8 @@ export class BrefPostComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    this.post.subtitle = this.post.subtitle? this.post.subtitle.split(' ').slice(0,40).join(' '): '';
   }
 
   gotoDetail() {

@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { PostService } from '../../../core/api/post.service';
 import { LoadingService } from '../../../core/util/loading.service';
 import { DialogService } from '../../../core/dialog/dialog.service';
+import { NavController } from 'ionic-angular';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class MyPostsComponent implements OnInit {
   constructor(
     private loadingService: LoadingService,
     private postService: PostService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private navCtrl: NavController
   ) { }
 
   ngOnInit() {
@@ -63,5 +65,12 @@ export class MyPostsComponent implements OnInit {
     if (!this.isOwner) {
       ev.close();
     }
+  }
+
+  edit(post) {
+
+    this.navCtrl.push('EditPostPage', {
+      id: post.ID
+    })
   }
 }

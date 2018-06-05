@@ -1,3 +1,18 @@
 button {
     margin-top: 20px;
 }
+
+.modal-backdrop{
+
+    z-index: -1!important;
+}
+
+.modal {
+
+    position: absolute!important;
+}
+
+.note-toolbar.card-header {
+
+    position: unset!important;
+}

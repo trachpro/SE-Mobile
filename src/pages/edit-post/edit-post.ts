@@ -22,7 +22,9 @@ declare let $: any;
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({
+  segment: 'edit-post/:id'
+})
 @Component({
   selector: 'page-edit-post',
   templateUrl: 'edit-post.html',
@@ -56,13 +58,13 @@ export class EditPostPage {
   }
 
   async ngOnInit() {
-    $('#summernote').summernote();
 
     this.loading.show();
 
     await this.loginService.refreshKey().toPromise().then( data => {
       
       // this.loading.hide();
+      $('#summernote').summernote();
 
       this.display = true;
     }, error => {
@@ -73,7 +75,7 @@ export class EditPostPage {
     if(!this.display) return;
 
     // this.id = this.route.snapshot.paramMap.get('id');
-    this.id = 0;
+    this.id = this.navParams.get('id');
 
     this.registData.categoryID = '1';
     this.registData.title = '';
@@ -222,6 +224,10 @@ export class EditPostPage {
       this.loading.hide();
 
       // this.router.navigate(['main/preview/'+ this.id]);
+
+      this.navCtrl.push('PreviewPage', {
+        id: this.id
+      })
 
       console.log("after upload image: ", this.registData.content);
     }, error => {

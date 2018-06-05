@@ -11,7 +11,7 @@
               <option *ngFor="let item of categoryList" [value]="item.ID">{{item.category}}</option>
             </select>
           </div>
-          <input type="text" [(ngModel)]="registData.title" style="font-size: 3em; width: 100%" placeholder="Enter Title">
+          <input type="text" [(ngModel)]="registData.title" style="font-size: 1em; width: 100%; color: #495057" placeholder="Enter Title">
           <span class="subheading">{{registData.title}}.</span>
         </div>
       </div>
@@ -20,9 +20,8 @@
 </header>
 
 <div class="container">
-    <!-- <editor [(ngModel)]="dataModel" (ngModelChange)="change()" [init]="init" apiKey="npgwie7b48m3u6qrpvlyc5j4zhhliyxf2be8sm6maperqiu7"></editor>   -->
     <textarea id="summernote" name="description" class="form-control" rows="3"></textarea>
-    <button class="btn btn-primary pull-left" >Cancel</button>
+    <button class="btn btn-primary pull-left" (click)="navCtrl.pop()">Cancel</button>
     <button style="float:right" class="btn btn-primary" (click)="preview()">Preview</button>
 </div>
 

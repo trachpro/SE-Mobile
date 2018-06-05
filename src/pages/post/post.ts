@@ -54,13 +54,12 @@ export class PostPage {
     this.postService.getById(this.id).subscribe( data => {
 
       console.log("post: ",this.id, data);
-      this.loading.hide();
+      
 
       this.postDetail = data.data;
       
-      setTimeout( () => {
-        $("#display").html(this.postDetail.content);
-      }, 50)
+      // $("#display").html(this.postDetail.content);
+      this.loading.hide();
     }, error => {
 
       this.loading.hide();
