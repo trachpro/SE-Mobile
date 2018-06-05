@@ -64,7 +64,6 @@ export class EditPostPage {
     await this.loginService.refreshKey().toPromise().then( data => {
       
       // this.loading.hide();
-      $('#summernote').summernote();
 
       this.display = true;
     }, error => {
@@ -73,6 +72,8 @@ export class EditPostPage {
     })
 
     if(!this.display) return;
+
+    $('#summernote').summernote();
 
     // this.id = this.route.snapshot.paramMap.get('id');
     this.id = this.navParams.get('id');
