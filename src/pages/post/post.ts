@@ -27,6 +27,8 @@ export class PostPage {
   // @Input() id: any;
   private postDetail: any = {};
   private id: any;
+  private comments: any;
+  private url: string;
 
   constructor(
     public navCtrl: NavController, 
@@ -59,10 +61,25 @@ export class PostPage {
       this.postDetail = data.data;
       
       // $("#display").html(this.postDetail.content);
+      this.comments = this.postDetail.comments;
+      this.loadContent();
       this.loading.hide();
     }, error => {
 
       this.loading.hide();
     })
+  }
+
+  loadContent() {
+    $("#display").html(this.postDetail.content);
+    $("img").css("max-width","100%");
+    $("img").css("height","auto");
+    $("iframe").css("max-width","100%");
+    $("iframe").css("height","auto");
+  }
+
+  share(baseUrl) {
+    window.open(baseUrl + encodeURIComponent(this.url) + "&text="+ this.postDetail.title); 
+    return false;
   }
 }

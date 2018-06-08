@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { ErrorComponent } from './error/error.component';
 import { SuccessComponent } from './success/success.component';
+import { ConfirmComponent } from './confirm/confirm';
 
 @Injectable()
 export class DialogService {
@@ -23,5 +24,11 @@ export class DialogService {
 
     if(!data) data = '';
     return this.dialog.open(ErrorComponent, { data: data}).afterClosed();
+  }
+
+  showConfirm(data?): Observable<any> {
+
+    if(!data) data = '';
+    return this.dialog.open(ConfirmComponent, { data: data}).afterClosed();
   }
 }

@@ -24,6 +24,21 @@ export class FormatService {
     return month + ' ' + day + ', ' + year;
   };
 
+  formatDateTime(time) {
+    if(!time) time = null;
+
+    let d = new Date(time);
+    let day: any = d.getDate();
+    let month: any = this.monthNames[d.getMonth()];
+    let year = d.getFullYear();
+    let hour = d.getHours();
+    let Hour = ("0" + hour).slice(-2);
+    let minute = d.getMinutes();
+    let Minute = ("0" + minute).slice(-2); 
+    return month + ' ' + day + ', ' + year + ' at ' + Hour + ':' + Minute;
+
+  }
+
   formatData(src, mainProp, level?) {
 
     level = level? level: 1;

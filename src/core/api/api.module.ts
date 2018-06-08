@@ -8,6 +8,7 @@ import { PostService } from './post.service';
 import { CategoryService } from './category.service';
 import { ImageService } from './image.service';
 // import { DialogModule } from '../dialog/dialog.module';
+import { CommentService } from './comment.service';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { ImageService } from './image.service';
     UserService,
     PostService,
     CategoryService,
-    ImageService
+    ImageService,
+    CommentService
   ]
 })
 export class ApiModule {}

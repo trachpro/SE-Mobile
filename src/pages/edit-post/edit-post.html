@@ -20,7 +20,7 @@
 </header>
 
 <div class="container">
-    <textarea id="summernote" name="description" class="form-control" rows="3"></textarea>
+    <textarea [id]="idDiv" name="description" class="form-control" rows="3"></textarea>
     <button class="btn btn-primary pull-left" (click)="navCtrl.pop()">Cancel</button>
     <button style="float:right" class="btn btn-primary" (click)="preview()">Preview</button>
 </div>

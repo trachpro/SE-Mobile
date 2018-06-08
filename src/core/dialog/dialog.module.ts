@@ -5,6 +5,7 @@ import { MatDialogModule } from '@angular/material';
 import { DialogService } from './dialog.service';
 import { ErrorComponent } from './error/error.component';
 import { SuccessComponent } from './success/success.component';
+import { ConfirmComponent } from './confirm/confirm';
 
 @NgModule({
   imports: [
@@ -13,14 +14,16 @@ import { SuccessComponent } from './success/success.component';
   ],
   declarations: [
     ErrorComponent, 
-    SuccessComponent
+    SuccessComponent,
+    ConfirmComponent
   ],
   providers: [
     DialogService
   ],
   entryComponents: [
     ErrorComponent, 
-    SuccessComponent
+    SuccessComponent,
+    ConfirmComponent
   ]
 })
 export class DialogModule { }

@@ -1,0 +1,12 @@
+<div style="width: 286px;">
+  <div style="width:100%;height:110px; text-align: center">
+    <!-- <i class="material-icons" style="font-size: 100px; color: white; top: 7%; position: relative;">cancel</i> -->
+    <img src="assets/images/Questionmark-icon.png" width="100" height="100" style="top: 7%; position: relative" >
+  </div>
+  <div class="body" style="text-align: center;padding: 10px;background-color: white;">
+    <div><strong>Are you sure?</strong></div>
+    <div>{{data}}</div>
+    <button style="margin-top: 20px; background-color: #91cbff" (click)="dialogRef.close(true)" class="btn">Yes</button>
+    <button style="margin-top: 20px" (click)="dialogRef.close(false)" class="btn btn-danger">No</button>
+  </div>
+</div>

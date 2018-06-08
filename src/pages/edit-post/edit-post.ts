@@ -38,6 +38,7 @@ export class EditPostPage {
   private registData: any = {};
   private categoryList: Array<any> = [];
   private id: any;
+  private idDiv: String;
 
   constructor(
     public navCtrl: NavController, 
@@ -59,6 +60,8 @@ export class EditPostPage {
 
   async ngOnInit() {
 
+    this.idDiv = "summernote"+ new Date().getTime();
+
     this.loading.show();
 
     await this.loginService.refreshKey().toPromise().then( data => {
@@ -73,7 +76,7 @@ export class EditPostPage {
 
     if(!this.display) return;
 
-    $('#summernote').summernote();
+    $('#' + this.idDiv).summernote();
 
     // this.id = this.route.snapshot.paramMap.get('id');
     this.id = this.navParams.get('id');
@@ -98,7 +101,7 @@ export class EditPostPage {
 
         this.dataModel = this.registData.content;
 
-        $('#summernote').summernote('code','<p>' + this.dataModel + '</p>');
+        $('#' + this.idDiv).summernote('code','<p>' + this.dataModel + '</p>');
         console.log("init summernote");
       }
 
@@ -132,11 +135,16 @@ export class EditPostPage {
         
       }
 
-      $('#summernote').summernote('code', this.dataModel );
+      $('#' + this.idDiv).summernote('code', this.dataModel );
 
       this.loading.hide();
     })
   }
+
+  // ngAfterViewInit() {
+
+  //   $('#summernote').summernote('code', this.dataModel );
+  // }
 
 
   post(): Observable<any> {
@@ -203,7 +211,7 @@ export class EditPostPage {
       return false;
     }
 
-    if(!$('#summernote').val()) {
+    if(!$('#' + this.idDiv).val()) {
 
       this.dialog.showError("Empty content!");
       return false;
@@ -217,7 +225,7 @@ export class EditPostPage {
     
     this.post().subscribe( data => {
 
-      this.registData.content = $('#summernote').summernote('code');
+      this.registData.content = $('#' + this.idDiv).summernote('code');
 
       this.storageService.set('preview' + this.id, this.registData);
       console.log("pre: ", this.storageService.get('preview'+this.id));
