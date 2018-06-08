@@ -5,19 +5,23 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { NavController } from 'Ionic-angular';
 import { StorageService } from '../core/util/storage.service';
+import { timer } from 'rxjs/observable/timer';
 
 declare let $: any;
+
 
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = "HomePage";
+  rootPage:any;
   @ViewChild('myNav') nav: NavController;
 
   private isLog: Boolean = false;
   private searchContent: String;
+
+  showSplash = true;
 
   constructor(
     platform: Platform, 
@@ -30,6 +34,13 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+
+      timer(3000).subscribe( () => {
+
+        this.showSplash = false;
+
+        this.rootPage = "HomePage"
+      })
     });
   }
 
