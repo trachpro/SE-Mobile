@@ -71,6 +71,7 @@ export class EditPostPage {
       this.display = true;
     }, error => {
 
+      this.navCtrl.push("LoginPage");
       this.loading.hide();
     })
 
