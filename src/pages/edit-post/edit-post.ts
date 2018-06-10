@@ -71,6 +71,8 @@ export class EditPostPage {
       this.display = true;
     }, error => {
 
+      this.dialog.showError("Login Time is out!");
+
       this.navCtrl.push("LoginPage").then(async () => {
 
         while (this.navCtrl.length() != 1) {
