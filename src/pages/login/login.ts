@@ -62,7 +62,16 @@ export class LoginPage {
       this.storageService.set('token',data.token);
       this.storageService.set('id', data.ID)
       
-      this.navCtrl.push('HomePage');
+      this.navCtrl.push('HomePage').then(async () => {
+
+        while (this.navCtrl.length() != 1) {
+
+          await this.navCtrl.remove(this.navCtrl.length() - 2).then(() => {
+
+            // console.log("1length: ", this.nav.length());
+          });
+        }
+      });
       
       this.loadingService.hide();
     }, error => {

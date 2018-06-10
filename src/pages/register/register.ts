@@ -50,7 +50,16 @@ export class RegisterPage {
           
           this.loadingService.hide();
 
-          this.navCtrl.pop();
+          this.navCtrl.push("LoginPage").then(async () => {
+
+            while (this.navCtrl.length() != 1) {
+
+              await this.navCtrl.remove(this.navCtrl.length() - 2).then(() => {
+
+                // console.log("1length: ", this.nav.length());
+              });
+            }
+          });
       }, err => {
           this.message = err.message;
           this.loadingService.hide();

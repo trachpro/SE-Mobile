@@ -49,10 +49,6 @@ export class PreviewPage {
 
     this.postDetail = this.storageService.get('preview' + this.id);
 
-    if(this.postDetail) $('#display').html(this.postDetail.content);
-
-    console.log("preview: ", 'preview'+this.id);
-
     $(".share-btn").click((e) => {
       e.preventDefault();
       return false;
@@ -104,7 +100,16 @@ export class PreviewPage {
 
       this.navCtrl.push('PostPage', {
         id: this.postDetail.ID
-      })
+      }).then(async () => {
+
+        while (this.navCtrl.length() != 2) {
+
+          await this.navCtrl.remove(this.navCtrl.length() - 2).then(() => {
+
+            // console.log("1length: ", this.nav.length());
+          });
+        }
+      });
     })
   }
 

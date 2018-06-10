@@ -3,9 +3,10 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { NavController } from 'Ionic-angular';
+import { NavController } from 'ionic-angular';
 import { StorageService } from '../core/util/storage.service';
 import { timer } from 'rxjs/observable/timer';
+import { AlertController } from 'ionic-angular';
 
 declare let $: any;
 
@@ -27,7 +28,8 @@ export class MyApp {
     platform: Platform, 
     statusBar: StatusBar, 
     splashScreen: SplashScreen,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private alertCtrl: AlertController
   ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -41,6 +43,31 @@ export class MyApp {
 
         this.rootPage = "HomePage"
       })
+    });
+
+    platform.registerBackButtonAction(() => {
+
+      if (this.nav.length() != 1) { //Can we go back?
+        this.nav.pop();
+      } else {
+        const alert = this.alertCtrl.create({
+          title: 'App termination',
+          message: 'Do you want to close the app?',
+          buttons: [{
+            text: 'Cancel',
+            role: 'cancel',
+            handler: () => {
+              console.log('Application exit prevented!');
+            }
+          }, {
+            text: 'Close App',
+            handler: () => {
+              platform.exitApp(); // Close this application
+            }
+          }]
+        });
+        alert.present();
+      }
     });
   }
 
@@ -74,13 +101,27 @@ export class MyApp {
 
     // this.nav.popToRoot();
     $("#navbarResponsive").removeClass("show");
-    this.nav.push(page);
+    this.nav.push(page).then(async  () => {
+
+      while(this.nav.length() != 1) {
+
+        await this.nav.remove(this.nav.length() - 2).then( () => {
+
+          // console.log("1length: ", this.nav.length());
+        });
+      }
+      
+      console.log("length: ", this.nav.length());
+    });
   }
 
   search() {
     if(this.searchContent.length) {
       // this.router.navigate(["/main/search"], {queryParams: {query: this.searchContent} });
-      this.nav.push('SearchPage',{query: this.searchContent});
+      this.nav.push('SearchPage',{query: this.searchContent}).then( () => {
+
+        this.nav.remove(this.nav.length() - 2);
+      });
       this.searchContent = "";
     }
     

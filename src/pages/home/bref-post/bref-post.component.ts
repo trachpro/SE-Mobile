@@ -32,11 +32,29 @@ export class BrefPostComponent implements OnInit {
 
   gotoTopic() {
 
-    this.navCtr.push('CategoryPage', {topic: this.post.category.ID});
+    this.navCtr.push('CategoryPage', { topic: this.post.category.ID }).then(async () => {
+
+      while (this.navCtr.length() != 1) {
+
+        await this.navCtr.remove(this.navCtr.length() - 2).then(() => {
+
+          // console.log("1length: ", this.nav.length());
+        });
+      }
+    });
   }
 
   gotoAuthor() {
 
-    this.navCtr.push('ProfilePage', {id: this.post.authorID? this.post.authorID: this.post.author.ID});
+    this.navCtr.push('ProfilePage', {id: this.post.authorID? this.post.authorID: this.post.author.ID}).then(async () => {
+
+      while (this.navCtr.length() != 1) {
+
+        await this.navCtr.remove(this.navCtr.length() - 2).then(() => {
+
+          // console.log("1length: ", this.nav.length());
+        });
+      }
+    });
   }
 }

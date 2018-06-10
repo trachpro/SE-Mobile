@@ -41,9 +41,19 @@ export class MyPostsComponent implements OnInit {
     console.log("post: ", this.postList);
   }
 
-  delete(post) {
+  async delete(post) {
 
-    console.log("delete: ", post);
+    let flag: Boolean;
+    
+    await this.dialogService.showConfirm({
+      title: "Delete post",
+      content: "Are you sure?"
+    }).toPromise().then( data => {
+
+      flag = data;
+    });
+
+    if(!flag) return;
 
     this.loadingService.show();
 

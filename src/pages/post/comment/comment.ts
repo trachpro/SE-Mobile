@@ -87,7 +87,12 @@ export class CommentComponent implements OnInit {
     //   alert("Cannot perform action");
     // })
 
-      this.dialogService.showConfirm().subscribe( flag => {
+      this.dialogService.showConfirm({
+        title: "Delete comment",
+        content: "Are you sure?"
+      }).subscribe( flag => {
+
+        console.log("flag: ", flag);
 
         if(flag) {
 

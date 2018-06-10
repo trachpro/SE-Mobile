@@ -71,7 +71,16 @@ export class EditPostPage {
       this.display = true;
     }, error => {
 
-      this.navCtrl.push("LoginPage");
+      this.navCtrl.push("LoginPage").then(async () => {
+
+        while (this.navCtrl.length() != 1) {
+
+          await this.navCtrl.remove(this.navCtrl.length() - 2).then(() => {
+
+            // console.log("1length: ", this.nav.length());
+          });
+        }
+      });
       this.loading.hide();
     })
 

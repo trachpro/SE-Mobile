@@ -63,3 +63,16 @@
     -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
   }
 }
+
+.custom-success-class .alert-head {
+  display: none;
+}
+
+.custom-success-class .alert-message {
+  padding: 0;
+  background-color: inherit;
+}
+
+.custom-success-class .alert-message .panel .panel-top .material-icons{
+  font-size: 100px;
+}
